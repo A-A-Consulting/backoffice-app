@@ -22,7 +22,12 @@ const theme = createTheme({
         // primary: {
         //     main: themePalette.LIGHT
         // }
-    }
+    },
+    // components: {
+    //     MuiContainer: {
+            
+    //     }
+    // }
 })
 
 export const ThemeConfig: React.FC<themeProp> = ({children}) => {
