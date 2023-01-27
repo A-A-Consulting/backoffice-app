@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeConfig } from './config/theme.config';
+import axios from 'axios';
+
+const {REACT_APP_HOST} = process.env;
+axios.defaults.baseURL =   REACT_APP_HOST || "http://localhost:3001";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
