@@ -1,28 +1,26 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import {
   getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  addDoc
-} from 'firebase/auth';
+  addDoc,
+} from "firebase/auth";
 import {
   getStorage,
   ref,
   deleteObject,
   uploadBytesResumable,
   getDownloadURL,
-} from 'firebase/storage';
+} from "firebase/storage";
 
-import { getFirebaseConfig } from './firebase-config.js';
-
-
+import { getFirebaseConfig } from "./firebase-config.js";
 
 export async function signIn() {
   var provider = new GoogleAuthProvider();
   var result = await signInWithPopup(getAuth(), provider);
-  return result
+  return result;
 }
 
 export function signOutUser() {
@@ -30,16 +28,16 @@ export function signOutUser() {
 }
 
 export function initFirebaseAuth() {
-  onAuthStateChanged(getAuth(), authStateObserver); 
+  onAuthStateChanged(getAuth(), authStateObserver);
 }
-// El código anterior registra la función 'authStateObserver' como observador 
-// del estado de autenticación. Se activará cada vez que cambie el estado 
-// de autenticación (cuando el usuario inicie o cierre sesión). 
+// El código anterior registra la función 'authStateObserver' como observador
+// del estado de autenticación. Se activará cada vez que cambie el estado
+// de autenticación (cuando el usuario inicie o cierre sesión).
 // invocada al final de la pagina.
 
 // Returns the signed-in user's profile Pic URL.
 function getProfilePicUrl() {
-  return getAuth().currentUser.photoURL || '/images/profile_placeholder.png';
+  return getAuth().currentUser.photoURL || "/images/profile_placeholder.png";
 }
 
 // Returns the signed-in user's display name.
@@ -52,20 +50,17 @@ function getUserName() {
 //   return !!getAuth().currentUser;
 // }
 
-
 // ----------------------------------------------------
 // path es la referencia en carpeta de firebase
 export function deleteImageOfStorage(path) {
-  try{
+  try {
     const storage = getStorage();
     let desertRef = ref(storage, path);
     return deleteObject(desertRef);
-
-  }catch(error){
-    console.log('deleteImageOfStorage - firebase', error)
+  } catch (error) {
+    console.log("deleteImageOfStorage - firebase", error);
   }
 }
-
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
@@ -76,7 +71,7 @@ function authStateObserver(user) {
     var userName = getUserName();
 
     // Set the user's profile pic and name.
-    let size = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+    let size = "url(" + addSizeToGoogleProfilePic(profilePicUrl) + ")";
 
     return (
       <div>
@@ -85,21 +80,17 @@ function authStateObserver(user) {
       </div>
     );
   } else {
-    return (
-      <a>Sesion</a>
-    )
+    return <a>Sesion</a>;
   }
 }
-
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
-  if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
-    return url + '?sz=80';
+  if (url.indexOf("googleusercontent.com") !== -1 && url.indexOf("?") === -1) {
+    return url + "?sz=80";
   }
   return url;
 }
-
 
 // TODO 0: Initialize Firebase
 const firebaseAppConfig = getFirebaseConfig();

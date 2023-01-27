@@ -1,7 +1,7 @@
 // import { initializeApp } from "firebase/app";
 // import { getFirestore } from "firebase/firestore";
 
-const {REACT_APP_apiKey,
+const { REACT_APP_apiKey,
   REACT_APP_authDomain,
   REACT_APP_databaseURL,
   REACT_APP_projectId,
@@ -25,7 +25,7 @@ const firebaseConfig = {
 export function getFirebaseConfig() {
   if (!firebaseConfig || !firebaseConfig.apiKey) {
     throw new Error('No Firebase configuration object provided.' + '\n' +
-    'Add your web app\'s configuration object to firebase-config.js');
+      'Add your web app\'s configuration object to firebase-config.js');
   } else {
     return firebaseConfig;
   }

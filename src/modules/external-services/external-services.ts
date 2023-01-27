@@ -7,6 +7,6 @@ export const loging = async (data: any) => {
     return response
   } catch (error) {
     console.error("🚀 ~ file: external-services.ts:8 ~ loging ~ error", error)
-    
+
   }
 }
