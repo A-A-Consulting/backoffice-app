@@ -5,7 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  addDoc,
+  UserCredential
 } from "firebase/auth";
 import {
   getStorage,
@@ -14,20 +14,20 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { getFirebaseConfig } from "./firebase-config";
 
-import { getFirebaseConfig } from "./firebase-config.js";
 
-export async function signIn() {
+export async function signIn(): Promise<UserCredential> {
   var provider = new GoogleAuthProvider();
   var result = await signInWithPopup(getAuth(), provider);
   return result;
 }
 
-export function signOutUser() {
+export function signOutUser(): void {
   signOut(getAuth());
 }
 
-export function initFirebaseAuth() {
+export function initFirebaseAuth(): void {
   onAuthStateChanged(getAuth(), authStateObserver);
 }
 // El código anterior registra la función 'authStateObserver' como observador
@@ -36,13 +36,13 @@ export function initFirebaseAuth() {
 // invocada al final de la pagina.
 
 // Returns the signed-in user's profile Pic URL.
-function getProfilePicUrl() {
-  return getAuth().currentUser.photoURL || "/images/profile_placeholder.png";
+function getProfilePicUrl(): string {
+  return getAuth().currentUser?.photoURL || "/images/profile_placeholder.png";
 }
 
 // Returns the signed-in user's display name.
-function getUserName() {
-  return getAuth().currentUser.displayName;
+function getUserName(): string | null | undefined {
+  return getAuth().currentUser?.displayName;
 }
 
 // Returns true if a user is signed-in.
@@ -52,7 +52,7 @@ function getUserName() {
 
 // ----------------------------------------------------
 // path es la referencia en carpeta de firebase
-export function deleteImageOfStorage(path) {
+export function deleteImageOfStorage(path: string): Promise<void> | undefined {
   try {
     const storage = getStorage();
     let desertRef = ref(storage, path);
@@ -63,7 +63,7 @@ export function deleteImageOfStorage(path) {
 }
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
-function authStateObserver(user) {
+function authStateObserver(user: any) {
   if (user) {
     // User is signed in!
     // Get the signed-in user's profile pic and name.
@@ -71,21 +71,20 @@ function authStateObserver(user) {
     var userName = getUserName();
 
     // Set the user's profile pic and name.
-    let size = "url(" + addSizeToGoogleProfilePic(profilePicUrl) + ")";
+    let size = `url(${addSizeToGoogleProfilePic(profilePicUrl)})`
 
-    return (
-      <div>
-        <img background-image={size}></img>
-        <a>{userName}</a>
-      </div>
-    );
-  } else {
-    return <a>Sesion</a>;
+    return `<div>
+      <img background-image=${size}> </img>
+      < a >${ userName }</a>
+    < /div>`
+
+    } else {
+      return `<a>Sesion</a>`;
+    }
   }
-}
 
 // Adds a size to Google Profile pics URLs.
-function addSizeToGoogleProfilePic(url) {
+function addSizeToGoogleProfilePic(url: any) {
   if (url.indexOf("googleusercontent.com") !== -1 && url.indexOf("?") === -1) {
     return url + "?sz=80";
   }
