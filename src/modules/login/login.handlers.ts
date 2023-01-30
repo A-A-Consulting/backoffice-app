@@ -1,4 +1,4 @@
-
+import { loging } from '../external-services/external-services'
 
 export const onChangeHandler = (
   value: string,
@@ -11,3 +11,13 @@ export const onChangeHandler = (
   setState({ ...state, [inputName]: value })
 }
 
+
+export const loginHandler = async (data: any) => {
+  try {
+    const response = await loging(data)
+    return response
+  } catch (error) {
+    console.log("🚀 ~ file: login.handlers.ts:20 ~ handleSubmit ~ error", error)
+
+  }
+}

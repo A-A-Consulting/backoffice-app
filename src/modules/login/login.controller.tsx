@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 
 import { LoginView } from "./login.view";
-import { onChangeHandler } from "./login.handlers";
+import { loginHandler , onChangeHandler } from "./login.handlers";
 import { loginSchema, loginValidator } from "./login.validator";
 
 const LoginController = () => {
@@ -17,7 +17,10 @@ const LoginController = () => {
   return (
     <Formik
       initialValues={initial_values}
-      onSubmit={() => alert("is submitting")}
+      onSubmit={async () => {
+        
+        await loginHandler(state)
+      }}
       validationSchema={loginSchema}
       // validate={async ()=> await loginValidator(state,setError)}
     >
