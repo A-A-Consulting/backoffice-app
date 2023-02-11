@@ -12,8 +12,9 @@ export const onChangeHandler = (
 }
 
 
-export const videoHandler = async (data: any) => {
+export const videoFormHandler = async (data: any) => {
   try {
+    console.log('data del form', data)
     const response = await saveVideo(data);
     if (response) {
       return response

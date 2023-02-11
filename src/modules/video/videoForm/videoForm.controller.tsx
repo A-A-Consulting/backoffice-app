@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 
 import { VideoFormView } from "./videoForm.view";
-import { videoHandler, onChangeHandler } from "./videoForm.handlers";
+import { videoFormHandler, onChangeHandler } from "./videoForm.handlers";
 import { videoSchema, videoValidator } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
 
@@ -36,7 +36,7 @@ const VideoController = () => {
       initialValues={initial_values}
       onSubmit={async () => {
         try{
-          const response = await videoHandler(state);
+          const response = await videoFormHandler(state);
           setAlertProps(alertSucces);
           setIsAlertShown(true);
         }catch(error){
@@ -49,9 +49,6 @@ const VideoController = () => {
       // validate={async ()=> await videoValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        // console.log("values", values);
-        // console.log("state", state);
-        // console.log("errors", errors);
         return (
           <>
             {isAlertShown&&(
