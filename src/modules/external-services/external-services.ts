@@ -78,11 +78,22 @@ export const changeRoleByAccountName = async (account_name: string, access: stri
 
 export const deleteUserById = async (id: string) => {
   try {
-    const response = await axios.delete(`/users/${id}`) 
+    const response = await axios.delete(`/users/${id}`)
     return response
   } catch (error) {
     console.log("🚀 ~ file: external-services.ts:84 ~ deleteUserById ~ error", error)
     return null
+  }
+}
+
+export const saveVideo = async (data: any) => {
+  try {
+    const response = await axios.post('/videos/upload', data)
+    console.error("🚀 RESPONSE EXTERNAL SERVICES", response)
+    return response
+  } catch (error) {
+    console.error("🚀 error external services", error)
+    return error
   }
 }
 
