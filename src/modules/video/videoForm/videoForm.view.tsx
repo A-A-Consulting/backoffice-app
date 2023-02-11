@@ -1,20 +1,20 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
-import { loginManager } from "../external-services/firebase/interceptor";
 
-import { LOGIN, WELCOME_MESSAGE, LOGIN_GOOGLE } from "./login.constants";
+import { SAVE_VIDEO, WELCOME_MESSAGE } from "./videoForm.constants";
+import { videoCreatorViewProps } from './videoForm.interface';
 
-const LoginView = (props: any) => {
-  const {
+const VideoFormView = (
+  {
     onChangeHandler,
     state,
     setState,
     errors,
     handleSubmit,
     setFieldValue,
-  } = props;
-
+  }: videoCreatorViewProps
+) => {
   return (
     <Container
       sx={{
@@ -52,38 +52,55 @@ const LoginView = (props: any) => {
             <h1>{WELCOME_MESSAGE}</h1>
           </Box>
           <TextField
-            id="email"
-            label="Email"
+            id="title"
+            label="Title"
             variant="outlined"
             onChange={(event) =>
               onChangeHandler(
                 event.target.value,
-                "email",
+                "title",
                 state,
                 setState,
                 setFieldValue
               )
             }
-            error={errors?.email}
-            helperText={errors?.email}
+            error={errors?.title}
+            helperText={errors?.title}
             margin={"normal"}
           />
           <TextField
-            id="password"
-            type={"password"}
-            label="Password"
+            id="url"
+            type={"url"}
+            label="Url web site"
             variant="outlined"
             onChange={(event) =>
               onChangeHandler(
                 event.target.value,
-                "password",
+                "url",
                 state,
                 setState,
                 setFieldValue
               )
             }
-            error={errors?.password}
-            helperText={errors?.password}
+            error={errors?.url}
+            helperText={errors?.url}
+            margin={"normal"}
+          />
+          <TextField
+            id="comments"
+            label="Comments"
+            variant="outlined"
+            onChange={(event) =>
+              onChangeHandler(
+                event.target.value,
+                "comments",
+                state,
+                setState,
+                setFieldValue
+              )
+            }
+            error={errors?.comments}
+            helperText={errors?.comments}
             margin={"normal"}
           />
           <Button
@@ -94,17 +111,7 @@ const LoginView = (props: any) => {
               width: "50%",
             }}
           >
-            {LOGIN}
-          </Button>
-          <Button
-            onClick={async () => loginManager()}
-            variant="contained"
-            sx={{
-              marginTop: "15px",
-              width: "50%",
-            }}
-          >
-            {LOGIN_GOOGLE}
+            {SAVE_VIDEO}
           </Button>
         </Box>
       </Box>
@@ -112,4 +119,4 @@ const LoginView = (props: any) => {
   );
 };
 
-export { LoginView };
+export { VideoFormView };

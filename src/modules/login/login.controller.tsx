@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 
 import { LoginView } from "./login.view";
-import { loginHandler , onChangeHandler } from "./login.handlers";
+import { loginHandler, onChangeHandler } from "./login.handlers";
 import { loginSchema, loginValidator } from "./login.validator";
+import ResponsiveAppBar from "../home/navbar.view";
 
 const LoginController = () => {
   const initial_values = {
@@ -18,27 +19,29 @@ const LoginController = () => {
     <Formik
       initialValues={initial_values}
       onSubmit={async () => {
-        
-        await loginHandler(state)
+        await loginHandler(state);
       }}
       validationSchema={loginSchema}
       // validate={async ()=> await loginValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        console.log("values", values);
-        console.log("state", state);
-        console.log("errors", errors);
+        // console.log("values", values);
+        // console.log("state", state);
+        // console.log("errors", errors);
         return (
-          <form>
-            <LoginView
-              onChangeHandler={onChangeHandler}
-              state={state}
-              setState={setState}
-              errors={errors}
-              handleSubmit={handleSubmit}
-              setFieldValue={setFieldValue}
-            />
-          </form>
+          <>
+            <ResponsiveAppBar></ResponsiveAppBar>
+            <form>
+              <LoginView
+                onChangeHandler={onChangeHandler}
+                state={state}
+                setState={setState}
+                errors={errors}
+                handleSubmit={handleSubmit}
+                setFieldValue={setFieldValue}
+              />
+            </form>
+          </>
         );
       }}
     </Formik>

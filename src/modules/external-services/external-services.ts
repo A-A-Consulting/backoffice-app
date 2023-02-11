@@ -1,5 +1,6 @@
 // LLAMADAS AXIOS A  SERVICIOS DE AUTH
 import axios from "axios"
+import getYouTubeID from 'get-youtube-id';
 
 export const userRecordController = async (user: any) => {
   try {
@@ -77,11 +78,23 @@ export const changeRoleByAccountName = async (account_name: string, access: stri
 
 export const deleteUserById = async (id: string) => {
   try {
-    const response = await axios.delete(`/users/${id}`) 
+    const response = await axios.delete(`/users/${id}`)
     return response
   } catch (error) {
     console.error("🚀 ~ file: external-services.ts:84 ~ deleteUserById ~ error", error)
     return null
+  }
+}
+
+export const saveVideo = async (data: any) => {
+  try {
+    const { title, url, comments } = data;
+    const youtubeId = getYouTubeID(url);
+    const response = await axios.post('/videos/upload', { title, url, comments, youtubeId })
+    return response
+  } catch (error) {
+    console.error("🚀 error external services", error)
+    throw new Error((error as Error).message)
   }
 }
 
