@@ -89,7 +89,7 @@ export const deleteUserById = async (id: string) => {
 export const saveVideo = async (data: any) => {
   try {
     const { title, url, comments } = data;
-    const youtubeId = getYouTubeID(url);
+    const youtubeId = await getYouTubeID(url);
     const response = await axios.post('/videos/upload', { title, url, comments, youtubeId })
     return response
   } catch (error) {
