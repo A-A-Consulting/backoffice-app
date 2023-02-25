@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeConfig } from "./config/theme.config";
 import axios from "axios";
+import { BrowserRouter } from "react-router-dom";
 
 const { REACT_APP_HOST } = process.env;
 // axios.defaults.baseURL = REACT_APP_HOST || "http://localhost:3001";
@@ -15,9 +16,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ThemeConfig>
-      <App />
-    </ThemeConfig>
+    <BrowserRouter>
+      <ThemeConfig>
+        <App />
+      </ThemeConfig>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

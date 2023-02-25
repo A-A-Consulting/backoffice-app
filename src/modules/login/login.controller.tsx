@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 
 import { LoginView } from "./login.view";
 import { loginHandler, onChangeHandler } from "./login.handlers";
-import { loginSchema, loginValidator } from "./login.validator";
-import ResponsiveAppBar from "../home/navbar.view";
+import { loginSchema } from "./login.validator";
+
 
 const LoginController = () => {
   const initial_values = {
@@ -30,7 +30,6 @@ const LoginController = () => {
         // console.log("errors", errors);
         return (
           <>
-            <ResponsiveAppBar></ResponsiveAppBar>
             <form>
               <LoginView
                 onChangeHandler={onChangeHandler}
