@@ -90,7 +90,8 @@ export const saveVideo = async (data: any) => {
   try {
     const { title, url, comments } = data;
     const youtubeId = getYouTubeID(url);
-    const response = await axios.post('/videos/upload', { title, url, comments, youtubeId })
+    console.log('youtubeIdyoutubeIdyoutubeIdyoutubeIdyoutubeId', youtubeId)
+    const response = await axios.post('/videos/create', { title, url, comments, youtubeId })
     return response
   } catch (error) {
     console.error("🚀 error external services", error)

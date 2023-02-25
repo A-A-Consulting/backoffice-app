@@ -14,15 +14,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { ACCOUNT, BLOG, DASHBOARD, LOGOUT, PRICING, PRODUCTS, PROFILE } from './navbar.constants';
+import { VIDEO_UPLOAD, BLOG, LOGIN, LOGOUT, PRICING, PRODUCTS, PROFILE } from './navbar.constants';
 import { signOutUser } from '../external-services/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const pages = [PRODUCTS, PRICING, BLOG];
-const settings = [PROFILE, ACCOUNT, DASHBOARD, LOGOUT];
+const settings = [PROFILE, VIDEO_UPLOAD, LOGIN, LOGOUT];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const navigator = useNavigate()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -42,9 +44,9 @@ function ResponsiveAppBar() {
     const value = event.currentTarget.innerText;
     if( value === settings[0] || value === 'Perfil'){ console.log(':::', value)}
 
-    if( value === settings[1] || value === 'Cuenta'){ console.log(':::', value)}
+    if( value === settings[1] || value === 'Acceso'){ navigator('/login')}
 
-    if( value === settings[2] || value === 'Tablero'){ console.log(':::', value)}
+    if( value === settings[2] || value === 'Subir un video'){ navigator('/videos/upload')}
 
     if( value === settings[3] || value === 'Cerrar sesión'){ return signOutUser() }
   };

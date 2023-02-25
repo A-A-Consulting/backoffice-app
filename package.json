@@ -15,11 +15,12 @@
     "dotenv": "16.0.3",
     "firebase": "^9.16.0",
     "formik": "^2.2.9",
+    "get-youtube-id": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-youtube": "^7.13.1",
-    "get-youtube-id": "^1.0.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4",
@@ -29,7 +30,8 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10"
+    "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
