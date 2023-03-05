@@ -22,12 +22,8 @@ const LoginController = () => {
         await loginHandler(state);
       }}
       validationSchema={loginSchema}
-      // validate={async ()=> await loginValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        // console.log("values", values);
-        // console.log("state", state);
-        // console.log("errors", errors);
         return (
           <>
             <ResponsiveAppBar></ResponsiveAppBar>

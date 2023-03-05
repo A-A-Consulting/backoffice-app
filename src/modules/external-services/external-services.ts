@@ -88,11 +88,8 @@ export const deleteUserById = async (id: string) => {
 
 export const saveVideo = async (data: any) => {
   try {
-    const { title, url, comments } = data;
-    const youtubeId = getYouTubeID(url);
-    console.log('youtubeIdyoutubeIdyoutubeIdyoutubeIdyoutubeId', youtubeId)
-    const response = await axios.post('/videos/create', { title, url, comments, youtubeId })
-    return response
+    const response = await axios.post('/videos/create', { ...data })
+    return response.data
   } catch (error) {
     console.error("🚀 error external services", error)
     throw new Error((error as Error).message)

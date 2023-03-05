@@ -14,15 +14,14 @@ export const onChangeHandler = (
 
 export const videoFormHandler = async (data: any) => {
   try {
-    console.log('data del form', data)
     const response = await saveVideo(data);
     if (response) {
       return response
     } else {
-      throw new Error('No db conect')
+      throw new Error('Could not save video')
     }
   } catch (error) {
-    console.error("🚀 ~ file: login.handlers.ts ~ videoHandler ~ error", error)
+    console.error("🚀 ~ file: videoForm.handlers.ts:25 ~ videoFormHandler ~ error:", error)
     throw new Error((error as Error).message)
   }
 }
