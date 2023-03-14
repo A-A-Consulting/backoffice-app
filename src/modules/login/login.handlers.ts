@@ -14,8 +14,9 @@ export const onChangeHandler = (
 
 export const loginHandler = async (data: any) => {
   try {
-    const response = await loging(data)
-    return response
+    const response = await loging(data);
+    console.log("ESTA ES LA RESPONSE DEL ENDPOINT", response)
+    return response.data;
   } catch (error) {
     console.log("🚀 ~ file: login.handlers.ts:20 ~ handleSubmit ~ error", error)
 

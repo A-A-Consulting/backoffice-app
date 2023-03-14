@@ -1,6 +1,5 @@
 // LLAMADAS AXIOS A  SERVICIOS DE AUTH
 import axios from "axios"
-import getYouTubeID from 'get-youtube-id';
 
 export const userRecordController = async (user: any) => {
   try {
@@ -15,8 +14,7 @@ export const userRecordController = async (user: any) => {
 export const loging = async (data: any) => {
   try {
     const response = await axios.post('/users/login', data)
-    //    console.error("🚀 ~ file: external-services.ts:8 ~ loging ~ response", response)
-    return response
+    return response.data
   } catch (error) {
     console.error("🚀 ~ file: external-services.ts:21 ~ loging ~ error", error)
     return null
