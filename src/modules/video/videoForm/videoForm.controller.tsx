@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 
 import { VideoFormView } from "./videoForm.view";
 import { videoFormHandler, onChangeHandler } from "./videoForm.handlers";
-import { videoSchema, videoValidator } from "./videoForm.validator";
+import { videoSchema } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
 
 const alertSucces = {
