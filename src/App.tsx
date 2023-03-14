@@ -1,17 +1,21 @@
-import { Routes, Route } from 'react-router-dom';
 import "./App.css";
-import ResponsiveAppBar from "./modules/home/navbar.view";
-import { VideoController } from "./modules/video/videoForm/videoForm.controller";
+import {  Route, Routes } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import { LoginController } from "./modules/login/login.controller";
+import { VideoLandingController } from "./modules/video/videoLanding/VideoLandingController";
+// import { routes } from "./routes";
+// const router = createBrowserRouter(routes);
 
 function App() {
+  // return <RouterProvider router={router} />;
   return (
-    <Routes>
-      <Route path="/" element={<ResponsiveAppBar />} />
-      <Route path="/login" element={<LoginController />} />
-      <Route path="/videos/upload" element={<VideoController />} />
-    </Routes>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<LoginController/>} />
+        <Route path="/videos" element={<VideoLandingController/>} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;

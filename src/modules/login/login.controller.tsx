@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { LoginView } from "./login.view";
 import { loginHandler, onChangeHandler } from "./login.handlers";
 import { loginSchema } from "./login.validator";
-
+import ResponsiveAppBar from "../home/navbar.view";
 
 const LoginController = () => {
   const initial_values = {
@@ -13,23 +13,20 @@ const LoginController = () => {
     isSubmitting: false,
   };
   const [state, setState] = useState(initial_values);
-  const [error, setError] = useState({ email: null, password: null });
 
   return (
     <Formik
       initialValues={initial_values}
       onSubmit={async () => {
-        await loginHandler(state);
+        const token = await loginHandler(state);
+        localStorage.setItem('accesToken', token)
       }}
       validationSchema={loginSchema}
-      // validate={async ()=> await loginValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        // console.log("values", values);
-        // console.log("state", state);
-        // console.log("errors", errors);
         return (
           <>
+            {/* <ResponsiveAppBar></ResponsiveAppBar> */}
             <form>
               <LoginView
                 onChangeHandler={onChangeHandler}
