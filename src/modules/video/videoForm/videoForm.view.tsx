@@ -3,27 +3,26 @@ import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
 import { SAVE_VIDEO, WELCOME_MESSAGE } from "./videoForm.constants";
-import { videoCreatorViewProps } from './videoForm.interface';
+import { videoCreatorViewProps } from "./videoForm.interface";
 
-const VideoFormView = (
-  {
-    onChangeHandler,
-    state,
-    setState,
-    errors,
-    handleSubmit,
-    setFieldValue,
-  }: videoCreatorViewProps
-) => {
+const VideoFormView = ({
+  onChangeHandler,
+  state,
+  setState,
+  errors,
+  handleSubmit,
+  setFieldValue,
+}: videoCreatorViewProps) => {
   return (
     <Container
       sx={{
         width: "100%",
-        height: "80%",
+        height: "100%",
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-  
+        backgroundColor: "white",
+        padding: "50px",
       }}
     >
       <Box
