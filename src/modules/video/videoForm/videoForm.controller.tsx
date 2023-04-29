@@ -7,16 +7,16 @@ import { videoSchema } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
 
 const alertSucces = {
-  severity: 'success',
-  message: 'The video was saved successfully!'
-}
+  severity: "success",
+  message: "The video was saved successfully!",
+};
 
 const alertError = {
-  severity: 'error',
-  message: 'Oops! something went wrong, try again!'
-}
+  severity: "error",
+  message: "Oops! something went wrong, try again!",
+};
 
-const VideoController = () => {
+const VideoFormController = () => {
   const initial_values = {
     title: null,
     comments: null,
@@ -24,23 +24,23 @@ const VideoController = () => {
     isSubmitting: false,
   };
   const [state, setState] = useState(initial_values);
-  const [isAlertShown, setIsAlertShown] = useState(false)
-  const [alertProps, setAlertProps] = useState(alertSucces)
+  const [isAlertShown, setIsAlertShown] = useState(false);
+  const [alertProps, setAlertProps] = useState(alertSucces);
 
   const onCloseAlert = () => {
-    setIsAlertShown(false)
-  }
+    setIsAlertShown(false);
+  };
 
   return (
     <Formik
       initialValues={initial_values}
       onSubmit={async () => {
-        try{
+        try {
           const response = await videoFormHandler(state);
           setAlertProps(alertSucces);
           setIsAlertShown(true);
-        }catch(error){
-          console.error((error as Error).message)
+        } catch (error) {
+          console.error((error as Error).message);
           setAlertProps(alertError);
           setIsAlertShown(true);
         }
@@ -51,8 +51,8 @@ const VideoController = () => {
       {({ values, handleSubmit, setFieldValue, errors }) => {
         return (
           <>
-            {isAlertShown&&(
-              <Alert 
+            {isAlertShown && (
+              <Alert
                 severity={alertProps.severity as AlertColor}
                 onClose={onCloseAlert}
               >
@@ -76,4 +76,4 @@ const VideoController = () => {
   );
 };
 
-export { VideoController };
+export { VideoFormController };

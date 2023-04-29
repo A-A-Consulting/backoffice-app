@@ -1,4 +1,4 @@
-import { loging } from '../external-services/external-services'
+import { loging } from "../external-services/external-services";
 
 export const onChangeHandler = (
   value: string,
@@ -8,17 +8,17 @@ export const onChangeHandler = (
   setFieldValue: Function
 ) => {
   setFieldValue([inputName], value);
-  setState({ ...state, [inputName]: value })
-}
-
+  setState({ ...state, [inputName]: value });
+};
 
 export const loginHandler = async (data: any) => {
   try {
     const response = await loging(data);
-    console.log("ESTA ES LA RESPONSE DEL ENDPOINT", response)
     return response.data;
   } catch (error) {
-    console.log("🚀 ~ file: login.handlers.ts:20 ~ handleSubmit ~ error", error)
-
+    console.error(
+      "🚀 ~ file: login.handlers.ts:20 ~ handleSubmit ~ error",
+      error
+    );
   }
-}
+};
