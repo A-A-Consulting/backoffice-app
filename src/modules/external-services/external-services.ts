@@ -118,6 +118,8 @@ export const deleteUserById = async (id: string) => {
   }
 };
 
+//VIDEO SERVICES
+
 export const saveVideo = async (data: any) => {
   try {
     const response = await axios.post("/videos/create", { ...data });
@@ -128,7 +130,7 @@ export const saveVideo = async (data: any) => {
   }
 };
 
-//VIDEO SERVICES
+
 
 export const getAllVideos = async () => {
   try {
@@ -148,6 +150,28 @@ export const getAllVideos = async () => {
     return null;
   }
 };
+
+// SUBSCRIPTION SERVICE
+
+
+export const saveSubscription = async (data: any) => {
+  try {
+    const response = await axios.post("/subscription/", { ...data });
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error external services", error);
+    throw new Error((error as Error).message);
+  }
+};
+
+export const getAllSubscriptions = async () => {
+  try {
+    const response = await axios.get('/subscription/all')
+    return response.data.data
+  } catch (error) {
+    return null
+  }
+}
 
 /*    ----funcion anonima para agilizar---
 

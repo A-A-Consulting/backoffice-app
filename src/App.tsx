@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { LoginController } from "./modules/login/login.controller";
 import { VideoLandingController } from "./modules/video/videoLanding/VideoLandingController";
 import { VideoTableView } from "./modules/video/videoTable/videoTable.view";
-
+import { SubscriptionLandingController } from './modules/subscriptions/subscriptionLanding/SubscriptionLandingController';
 // import { routes } from "./routes";
 // const router = createBrowserRouter(routes);
 import MiniDrawer from "./modules/sideBar/sidebar.view";
@@ -27,7 +27,7 @@ function App() {
         <Route path="videos" element={<VideoLandingController />} />
         <Route
           path="priority"
-          element={<h1>Soy el listado de planes de subscripcion</h1>}
+          element={<SubscriptionLandingController />}
         />
       </Route>
     </Routes>
