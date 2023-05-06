@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 
 const { REACT_APP_HOST } = process.env;
 // axios.defaults.baseURL = REACT_APP_HOST || "http://localhost:3001";
-axios.defaults.baseURL = "http://localhost:3041";
+axios.defaults.baseURL = "http://localhost:3100";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
