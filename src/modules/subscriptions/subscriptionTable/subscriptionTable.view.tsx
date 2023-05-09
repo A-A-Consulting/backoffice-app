@@ -73,7 +73,7 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
           }}
           component={TableContainer}
           open={isModalOpen}
-          onClose={(event: {}, reason: "backdropClick" | "escapeKeyDown") => handleCloseModal()}
+          onClose={handleCloseModal}
         >
           {<SubscriptionFormController />}
         </Modal>
