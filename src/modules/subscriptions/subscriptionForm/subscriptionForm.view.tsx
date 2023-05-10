@@ -2,8 +2,8 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
-import { SAVE_SUBSCRIPTION, WELCOME_MESSAGE } from "./subscriptionForm.constants";
-import { videoCreatorViewProps } from "./subscriptionForm.interface";
+import { INSPECT, SAVE_SUBSCRIPTION, WELCOME_MESSAGE } from "./subscriptionForm.constants";
+import { subscriptionCreatorViewProps } from "./subscriptionForm.interface";
 
 const SubscriptionFormView = ({
   onChangeHandler,
@@ -12,7 +12,8 @@ const SubscriptionFormView = ({
   errors,
   handleSubmit,
   setFieldValue,
-}: videoCreatorViewProps) => {
+  action
+}: subscriptionCreatorViewProps) => {
   return (
     <Container
       sx={{
@@ -103,6 +104,7 @@ const SubscriptionFormView = ({
             margin={"normal"}
           />
           <Button
+            hidden={action === INSPECT ? true : false}
             onClick={() => handleSubmit()}
             variant="contained"
             sx={{

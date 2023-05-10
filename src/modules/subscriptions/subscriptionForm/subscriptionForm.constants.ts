@@ -12,3 +12,8 @@ export const alertError = {
   severity: "error",
   message: "Oops! something went wrong, try again!",
 };
+
+export const CREATE = 'create';
+export const EDIT = 'edit';
+export const INSPECT = 'inspect';
+export const DELETE = 'delete';

@@ -132,7 +132,7 @@ export const saveVideo = async (data: any) => {
 
 export const editVideo = async (data: any) => {
   try {
-    const response = await axios.patch("/videos/edit", { ...data });
+    const response = await axios.patch("/videos/update", { ...data });
     return response.data;
   } catch (error) {
     console.error("🚀 error external services editVideo", error);
@@ -167,6 +167,17 @@ export const getAllVideos = async () => {
 export const saveSubscription = async (data: any) => {
   try {
     const response = await axios.post("/subscription/create", { ...data });
+   // console.log('response.data:::::', response.data)
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error external services", error);
+    throw new Error((error as Error).message);
+  }
+};
+
+export const deleteSubscription = async (data: any) => {
+  try {
+    const response = await axios.delete("/subscription/delete", { ...data });
    // console.log('response.data:::::', response.data)
     return response.data;
   } catch (error) {

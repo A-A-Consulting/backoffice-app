@@ -1,4 +1,4 @@
-import { saveSubscription } from "../../external-services/external-services"; 
+import { saveSubscription, deleteSubscription } from "../../external-services/external-services"; 
 
 export const onChangeHandler = (
   value: string,
@@ -22,6 +22,20 @@ export const subscriptionFormHandler = async (data: any) => {
     }
   } catch (error) {
     console.error("🚀 ~ file: subscriptionForm.handlers.ts:25 ~ subscriptionFormHandler ~ error:", error)
+    throw new Error((error as Error).message)
+  }
+}
+
+export const subscriptionDeleteFormHandler = async (data: any) => {
+  try {
+    const response = await deleteSubscription(data);
+    if (response) {
+      return response
+    } else {
+      throw new Error('Could not delete subscription')
+    }
+  } catch (error) {
+    console.error("🚀 ~ file: subscriptionDeleteFormHandler.handlers.ts:38 ~ subscriptionDeleteFormHandler ~ error:", error)
     throw new Error((error as Error).message)
   }
 }

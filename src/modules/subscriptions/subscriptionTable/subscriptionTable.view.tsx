@@ -15,24 +15,29 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { SubscriptionFormController } from "../subscriptionForm/subscriptionForm.controller";
+import { CREATE, DELETE, EDIT, INSPECT } from "../subscriptionForm/subscriptionForm.constants";
 
 interface SubscriptionTableViewPropsI {
   subscriptionList: subscriptionItem[];
 }
 
-
-const handleClick = (id: string) => {
-  alert('hace falta otro modal para eliminar?')
-};
-
 export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
   const { subscriptionList } = props;
+  const [isAction, setAction] = useState(CREATE);
+  const [isContent, setIsContent] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {}, [subscriptionList]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleClick = (content: any, action: string) => {
+    setAction(action);
+    setIsContent(content);
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <h3>Tabla de Subscripciones</h3>
@@ -42,7 +47,6 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
             <TableRow>
               <TableCell>Nombre del plan</TableCell>
               <TableCell>Costo mensual</TableCell>
-              <TableCell>Descripcion</TableCell>
               <TableCell>Acciones</TableCell>
             </TableRow>
           </TableHead>
@@ -52,13 +56,10 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
                 <TableCell>{subscription.name}</TableCell>
                 <TableCell>{subscription.amount}</TableCell>
                 <TableCell>{subscription.description}</TableCell>
-                <IconButton onClick={() => alert('necesitamos otro modal?')}>
+                <IconButton onClick={() => handleClick(subscription, INSPECT)}>
                   <RemoveRedEyeIcon />
                 </IconButton>
-                <IconButton onClick={() => setIsModalOpen(true)}>
-                  <EditIcon />
-                </IconButton>
-                <IconButton onClick={() => handleClick(subscription.id)}>
+                <IconButton onClick={() => handleClick(subscription, DELETE)}>
                   <DeleteForeverIcon />
                 </IconButton>
               </TableRow>
@@ -75,7 +76,7 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
           open={isModalOpen}
           onClose={handleCloseModal}
         >
-          {<SubscriptionFormController />}
+          {<SubscriptionFormController action={isAction} content={isContent} />}
         </Modal>
       </TableContainer>
     </>
