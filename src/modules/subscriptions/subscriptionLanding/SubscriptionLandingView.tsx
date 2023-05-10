@@ -11,11 +11,11 @@ import { subscriptionItem } from "../subscription.interface";
 import { SubscriptionTableView } from "../subscriptionTable/subscriptionTable.view";
 import { useState } from "react";
 
-interface VideoLandingViewProps {
+interface SubscriptionLandingViewProps {
   subscriptionList: subscriptionItem[];
 }
 
-export const SubscriptionLandingView = (props: VideoLandingViewProps) => {
+export const SubscriptionLandingView = (props: SubscriptionLandingViewProps) => {
   const { subscriptionList } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -135,13 +135,13 @@ export const saveVideo = async (data: any) => {
 export const getAllVideos = async () => {
   try {
     const serviceResponse = await axios.get("/videos/all");
-    console.log(
-      "🚀 ~ file: external-services.ts:136 ~ getAllVideos ~ serviceResponse:",
-      serviceResponse
-    );
-    console.debug(
-      `Service getAllVideos | GET Success | ${serviceResponse.data} videos wer found`
-    );
+    // console.log(
+    //   "🚀 ~ file: external-services.ts:136 ~ getAllVideos ~ serviceResponse:",
+    //   serviceResponse
+    // );
+    // console.debug(
+    //   `Service getAllVideos | GET Success | ${serviceResponse.data} videos wer found`
+    // );
     return serviceResponse.data.data;
   } catch (error) {
     console.error(
@@ -156,7 +156,8 @@ export const getAllVideos = async () => {
 
 export const saveSubscription = async (data: any) => {
   try {
-    const response = await axios.post("/subscription/", { ...data });
+    const response = await axios.post("/subscription/create", { ...data });
+   // console.log('response.data:::::', response.data)
     return response.data;
   } catch (error) {
     console.error("🚀 error external services", error);
