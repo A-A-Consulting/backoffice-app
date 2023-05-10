@@ -6,7 +6,7 @@ import { SubscriptionFormView } from "./subscriptionForm.view";
 import { subscriptionFormHandler, subscriptionDeleteFormHandler, onChangeHandler } from "./subscriptionForm.handlers";
 import { subscriptionSchema } from "./subscriptionForm.validator";
 import { Alert, AlertColor } from "@mui/material";
-import { alertSucces, alertError, EDIT, CREATE, DELETE } from './subscriptionForm.constants';
+import { alertSucces, alertError, CREATE, DELETE } from './subscriptionForm.constants';
 
 
 const SubscriptionFormController = (props: any) => {
@@ -27,29 +27,35 @@ const SubscriptionFormController = (props: any) => {
 
   const handleSubmitForm = async () => {
     if(action === DELETE){
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          subscriptionDeleteFormHandler(state)
-          .then((response) => {
-              if(response){
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
+      try {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            subscriptionDeleteFormHandler(state)
+            .then((response) => {
+                if(response){
+                  Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                }
               }
-            }
-          )
-        }
-      })
+            )
+          }
+        })
+      } catch (error) {
+        console.error((error as Error).message);
+        setAlertProps(alertError);
+        setIsAlertShown(true);
+      } 
     }
 
     if(action === CREATE) {

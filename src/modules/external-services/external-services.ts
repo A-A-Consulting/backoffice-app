@@ -140,7 +140,15 @@ export const editVideo = async (data: any) => {
   }
 };
 
-
+export const deleteVideo = async (data: any) => {
+  try {
+    const response = await axios.delete(`/videos/${data.id}`, { ...data });
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error delete video external services", error);
+    throw new Error((error as Error).message);
+  }
+};
 
 export const getAllVideos = async () => {
   try {
