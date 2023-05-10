@@ -1,4 +1,4 @@
-import { saveVideo } from "../../external-services/external-services"; 
+import { saveVideo, editVideo } from "../../external-services/external-services"; 
 
 export const onChangeHandler = (
   value: string,
@@ -22,6 +22,20 @@ export const videoFormHandler = async (data: any) => {
     }
   } catch (error) {
     console.error("🚀 ~ file: videoForm.handlers.ts:25 ~ videoFormHandler ~ error:", error)
+    throw new Error((error as Error).message)
+  }
+}
+
+export const videoEditFormHandler = async (data: any) => {
+  try {
+    const response = await editVideo(data);
+    if (response) {
+      return response
+    } else {
+      throw new Error('Could not save edit video')
+    }
+  } catch (error) {
+    console.error("🚀 ~ file: videoEditForm.handlers.ts:38 ~ videoEditFormHandler ~ error:", error)
     throw new Error((error as Error).message)
   }
 }

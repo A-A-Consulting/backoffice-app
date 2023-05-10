@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Formik } from "formik";
 
 import { VideoFormView } from "./videoForm.view";
-import { videoFormHandler, onChangeHandler } from "./videoForm.handlers";
+import { videoFormHandler, videoEditFormHandler, onChangeHandler } from "./videoForm.handlers";
 import { videoSchema } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
+import { CREATE, EDIT } from "./videoForm.constants";
 
 const alertSucces = {
   severity: "success",
@@ -16,11 +17,12 @@ const alertError = {
   message: "Oops! something went wrong, try again!",
 };
 
-const VideoFormController = () => {
+const VideoFormController = (props: any) => {
+  const { action, content } = props;
   const initial_values = {
-    title: null,
-    comments: null,
-    url: null,
+    title: content?.title ? content.title : null,
+    comments: content?.comments ? content.comments : null,
+    url: content?.url ? content.url : null,
     isSubmitting: false,
   };
   const [state, setState] = useState(initial_values);
@@ -31,20 +33,36 @@ const VideoFormController = () => {
     setIsAlertShown(false);
   };
 
-  return (
-    <Formik
-      initialValues={initial_values}
-      onSubmit={async () => {
+  const handleSubmitForm = async () => {
+    if(action === CREATE) {
+      try {
+        await videoFormHandler(state);
+        setAlertProps(alertSucces);
+        setIsAlertShown(true);
+      } catch (error) {
+        console.error((error as Error).message);
+        setAlertProps(alertError);
+        setIsAlertShown(true);
+      } 
+    }else{
+      if(action === EDIT){
         try {
-          const response = await videoFormHandler(state);
+          await videoEditFormHandler(state);
           setAlertProps(alertSucces);
           setIsAlertShown(true);
         } catch (error) {
           console.error((error as Error).message);
           setAlertProps(alertError);
           setIsAlertShown(true);
-        }
-      }}
+        } 
+      }
+    }
+  }
+
+  return (
+    <Formik
+      initialValues={initial_values}
+      onSubmit={handleSubmitForm}
       validationSchema={videoSchema}
       // validate={async ()=> await videoValidator(state,setError)}
     >
@@ -67,6 +85,7 @@ const VideoFormController = () => {
                 errors={errors}
                 handleSubmit={handleSubmit}
                 setFieldValue={setFieldValue}
+                action={action}
               />
             </form>
           </>

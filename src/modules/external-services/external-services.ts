@@ -125,7 +125,17 @@ export const saveVideo = async (data: any) => {
     const response = await axios.post("/videos/create", { ...data });
     return response.data;
   } catch (error) {
-    console.error("🚀 error external services", error);
+    console.error("🚀 error external services saveVideo", error);
+    throw new Error((error as Error).message);
+  }
+}; 
+
+export const editVideo = async (data: any) => {
+  try {
+    const response = await axios.patch("/videos/edit", { ...data });
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error external services editVideo", error);
     throw new Error((error as Error).message);
   }
 };

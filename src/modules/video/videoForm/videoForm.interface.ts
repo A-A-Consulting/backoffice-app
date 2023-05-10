@@ -12,4 +12,5 @@ export type videoCreatorViewProps = {
   errors: any;
   handleSubmit: Function;
   setFieldValue: Function;
+  action: string
 };

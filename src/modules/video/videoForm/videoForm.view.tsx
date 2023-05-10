@@ -4,6 +4,8 @@ import { Container, Box } from "@mui/material";
 
 import { SAVE_VIDEO, WELCOME_MESSAGE } from "./videoForm.constants";
 import { videoCreatorViewProps } from "./videoForm.interface";
+import { INSPECT } from "./videoForm.constants";
+import { EDIT } from "./videoForm.constants";
 
 const VideoFormView = ({
   onChangeHandler,
@@ -12,6 +14,7 @@ const VideoFormView = ({
   errors,
   handleSubmit,
   setFieldValue,
+  action
 }: videoCreatorViewProps) => {
   return (
     <Container
@@ -68,6 +71,7 @@ const VideoFormView = ({
             margin={"normal"}
           />
           <TextField
+            disabled={action === EDIT ? true : false}
             id="url"
             type={"url"}
             label="Url web site"
@@ -103,6 +107,7 @@ const VideoFormView = ({
             margin={"normal"}
           />
           <Button
+            hidden={action === INSPECT ? true : false}
             onClick={() => handleSubmit()}
             variant="contained"
             sx={{
