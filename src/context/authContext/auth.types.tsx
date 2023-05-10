@@ -1,6 +1,4 @@
-
-
 export type authContextT = {
-    isAuthenticated: boolean,
-    accesToken: string | undefined,
-}
+  isAuthenticated: boolean;
+  accessToken: string | null;
+};

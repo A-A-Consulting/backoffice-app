@@ -6,10 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeConfig } from "./config/theme.config";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/authContext/auth.provider";
 
-const { REACT_APP_HOST } = process.env;
-// axios.defaults.baseURL = REACT_APP_HOST || "http://localhost:3001";
-axios.defaults.baseURL = "http://localhost:3100";
+const { API_HOST } = process.env;
+console.log("🚀 ~ file: index.tsx:12 ~ API_HOST:", API_HOST);
+axios.defaults.baseURL = API_HOST || "http://localhost:3100";
+// axios.defaults.baseURL = "http://localhost:3100";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,9 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeConfig>
-        <App />
-      </ThemeConfig>
+      <AuthProvider>
+        <ThemeConfig>
+          <App />
+        </ThemeConfig>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

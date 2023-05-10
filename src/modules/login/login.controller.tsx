@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik } from "formik";
 
 import { LoginView } from "./login.view";
 import { loginHandler, onChangeHandler } from "./login.handlers";
 import { loginSchema } from "./login.validator";
 import ResponsiveAppBar from "../home/navbar.view";
+import AuthContext from "../../context/authContext/auth.provider";
+import { useNavigate } from "react-router";
 
 const LoginController = () => {
+  const { loginUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const initial_values = {
     email: null,
     password: null,
@@ -18,8 +22,13 @@ const LoginController = () => {
     <Formik
       initialValues={initial_values}
       onSubmit={async () => {
-        const token = await loginHandler(state);
-        localStorage.setItem('accesToken', token)
+        try {
+          if (state.email && state.password) {
+            await loginUser(state.email, state.password);
+          }
+        } catch (error) {}
+        // const token = await loginHandler(state);
+        // localStorage.setItem('accesToken', token)
       }}
       validationSchema={loginSchema}
     >
