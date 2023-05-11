@@ -2,7 +2,11 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
-import { INSPECT, SAVE_SUBSCRIPTION, WELCOME_MESSAGE } from "./subscriptionForm.constants";
+import { 
+  FORM_TITLE_MESSAGE,
+  INSPECT,
+  SAVE_SUBSCRIPTION 
+} from "./subscriptionForm.constants";
 import { subscriptionCreatorViewProps } from "./subscriptionForm.interface";
 
 const SubscriptionFormView = ({
@@ -49,7 +53,12 @@ const SubscriptionFormView = ({
               textAlign: "center",
             }}
           >
-            <h1>{WELCOME_MESSAGE}</h1>
+            <h1>
+              {
+                //@ts-ignore
+                FORM_TITLE_MESSAGE[`${action}`]
+              }
+            </h1>
           </Box>
           <TextField
             id="name"

@@ -5,11 +5,10 @@ import { Container, Box } from "@mui/material";
 import {
   FORM_TITLE_MESSAGE,
   SAVE_VIDEO,
-  WELCOME_MESSAGE,
+  INSPECT, 
+  EDIT
 } from "./videoForm.constants";
 import { videoCreatorViewProps } from "./videoForm.interface";
-import { INSPECT } from "./videoForm.constants";
-import { EDIT } from "./videoForm.constants";
 
 const VideoFormView = ({
   onChangeHandler,

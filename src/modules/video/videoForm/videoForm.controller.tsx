@@ -1,38 +1,27 @@
 import { useState, useEffect } from "react";
 import { Formik } from "formik";
-import Swal from "sweetalert2";
 
 import { VideoFormView } from "./videoForm.view";
 import {
   videoFormHandler,
   videoEditFormHandler,
-  onChangeHandler,
-  deleteVideoService,
+  onChangeHandler
 } from "./videoForm.handlers";
 import { videoSchema } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
-import { CREATE, DELETE, EDIT } from "./videoForm.constants";
+import { CREATE, EDIT, alertSucces, alertError } from "./videoForm.constants";
 
-const alertSucces = {
-  severity: "success",
-  message: "The video was saved successfully!",
-};
-
-const alertError = {
-  severity: "error",
-  message: "Oops! something went wrong, try again!",
-};
 
 const VideoFormController = (props: any) => {
   const { action, content } = props;
-  console.log(
-    "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ content:",
-    content
-  );
-  console.log(
-    "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ action:",
-    action
-  );
+  // console.log(
+  //   "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ content:",
+  //   content
+  // );
+  // console.log(
+  //   "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ action:",
+  //   action
+  // );
 
   const initial_values = {
     id: content.id ? content.id : null,
@@ -95,7 +84,7 @@ const VideoFormController = (props: any) => {
       // validate={async ()=> await videoValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        console.log("LOS VALUES EN EL FORM ->>>>>>>>>", values);
+      //  console.log("LOS VALUES EN EL FORM ->>>>>>>>>", values);
         return (
           <>
             {isAlertShown && (

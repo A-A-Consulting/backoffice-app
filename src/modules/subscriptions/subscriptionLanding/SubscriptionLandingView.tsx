@@ -2,21 +2,25 @@ import { Box, Button, Container, Modal } from "@mui/material";
 import { SubscriptionFormController } from "../subscriptionForm/subscriptionForm.controller";
 import { subscriptionItem } from "../subscription.interface";
 import { SubscriptionTableView } from "../subscriptionTable/subscriptionTable.view";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CREATE } from "../subscriptionForm/subscriptionForm.constants";
 
 interface SubscriptionLandingViewProps {
   subscriptionList: subscriptionItem[];
 }
 
-export const SubscriptionLandingView = (
-  props: SubscriptionLandingViewProps
-) => {
+export const SubscriptionLandingView = (props: SubscriptionLandingViewProps) => {
   const { subscriptionList } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState(CREATE);
+  const [selectedSubscription, setSelectedSubscription] = useState(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  
+  useEffect(() => {}, [action]);
+
   return (
     <Container>
       <h1>Tablero de subscripciones</h1>
@@ -34,7 +38,12 @@ export const SubscriptionLandingView = (
           Añadir Subscripcion
         </Button>
       </Box>
-      <SubscriptionTableView subscriptionList={subscriptionList} />
+      <SubscriptionTableView 
+        subscriptionList={subscriptionList} 
+        setSelectedSubscription={setSelectedSubscription}
+        setIsModalOpen={setIsModalOpen}
+        setAction={setAction}
+      />
 
       <Modal
         sx={{
@@ -46,7 +55,7 @@ export const SubscriptionLandingView = (
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <SubscriptionFormController />
+        <SubscriptionFormController action={action} content={selectedSubscription} />
       </Modal>
     </Container>
   );

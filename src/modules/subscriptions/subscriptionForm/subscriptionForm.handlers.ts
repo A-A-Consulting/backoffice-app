@@ -26,7 +26,7 @@ export const subscriptionFormHandler = async (data: any) => {
   }
 }
 
-export const subscriptionDeleteFormHandler = async (data: any) => {
+export const deleteSubscriptionService = async (data: any) => {
   try {
     const response = await deleteSubscription(data);
     if (response) {

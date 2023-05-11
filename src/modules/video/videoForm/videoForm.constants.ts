@@ -11,3 +11,13 @@ export const FORM_TITLE_MESSAGE = {
   edit: "Modificá el Video",
   inspect: "Detalles del Video",
 };
+
+export const alertSucces = {
+  severity: "success",
+  message: "The video was saved successfully!",
+};
+
+export const alertError = {
+  severity: "error",
+  message: "Oops! something went wrong, try again!",
+};

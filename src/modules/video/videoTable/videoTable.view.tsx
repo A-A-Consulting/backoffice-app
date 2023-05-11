@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableContainer,
@@ -14,7 +14,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { DELETE, EDIT, INSPECT } from "../videoForm/videoForm.constants";
+import { EDIT, INSPECT } from "../videoForm/videoForm.constants";
 import Swal from "sweetalert2";
 import { deleteVideoService } from "../videoForm/videoForm.handlers";
 
