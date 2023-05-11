@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import { LoginView } from "./login.view";
 import { loginHandler, onChangeHandler } from "./login.handlers";
 import { loginSchema } from "./login.validator";
-import ResponsiveAppBar from "../home/navbar.view";
 import AuthContext from "../../context/authContext/auth.provider";
 import { useNavigate } from "react-router";
 
