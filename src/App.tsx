@@ -3,8 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { LoginController } from "./modules/login/login.controller";
 import { VideoLandingController } from "./modules/video/videoLanding/VideoLandingController";
 import { SubscriptionLandingController } from "./modules/subscriptions/subscriptionLanding/SubscriptionLandingController";
-// import { routes } from "./routes";
-// const router = createBrowserRouter(routes);
 import MiniDrawer from "./modules/sideBar/sidebar.view";
 
 function App() {

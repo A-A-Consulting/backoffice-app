@@ -125,23 +125,35 @@ export const saveVideo = async (data: any) => {
     const response = await axios.post("/videos/create", { ...data });
     return response.data;
   } catch (error) {
-    console.error("🚀 error external services", error);
+    console.error("🚀 error external services saveVideo", error);
     throw new Error((error as Error).message);
   }
 };
 
+export const editVideo = async (data: any) => {
+  try {
+    const response = await axios.patch("/videos/update", { ...data });
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error external services editVideo", error);
+    throw new Error((error as Error).message);
+  }
+};
 
+export const deleteVideo = async (data: any) => {
+  try {
+    const response = await axios.delete(`/videos/${data.id}`);
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error delete video external services", error);
+    throw new Error((error as Error).message);
+  }
+};
 
 export const getAllVideos = async () => {
   try {
     const serviceResponse = await axios.get("/videos/all");
-    console.log(
-      "🚀 ~ file: external-services.ts:136 ~ getAllVideos ~ serviceResponse:",
-      serviceResponse
-    );
-    console.debug(
-      `Service getAllVideos | GET Success | ${serviceResponse.data} videos wer found`
-    );
+
     return serviceResponse.data.data;
   } catch (error) {
     console.error(
@@ -153,10 +165,21 @@ export const getAllVideos = async () => {
 
 // SUBSCRIPTION SERVICE
 
-
 export const saveSubscription = async (data: any) => {
   try {
-    const response = await axios.post("/subscription/", { ...data });
+    const response = await axios.post("/subscription/create", { ...data });
+
+    return response.data;
+  } catch (error) {
+    console.error("🚀 error external services", error);
+    throw new Error((error as Error).message);
+  }
+};
+
+export const deleteSubscription = async (data: any) => {
+  try {
+    const response = await axios.delete("/subscription/delete", { ...data });
+
     return response.data;
   } catch (error) {
     console.error("🚀 error external services", error);
@@ -166,12 +189,12 @@ export const saveSubscription = async (data: any) => {
 
 export const getAllSubscriptions = async () => {
   try {
-    const response = await axios.get('/subscription/all')
-    return response.data.data
+    const response = await axios.get("/subscription/all");
+    return response.data.data;
   } catch (error) {
-    return null
+    return null;
   }
-}
+};
 
 /*    ----funcion anonima para agilizar---
 

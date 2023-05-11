@@ -2,8 +2,14 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
-import { SAVE_VIDEO, WELCOME_MESSAGE } from "./videoForm.constants";
+import {
+  FORM_TITLE_MESSAGE,
+  SAVE_VIDEO,
+  WELCOME_MESSAGE,
+} from "./videoForm.constants";
 import { videoCreatorViewProps } from "./videoForm.interface";
+import { INSPECT } from "./videoForm.constants";
+import { EDIT } from "./videoForm.constants";
 
 const VideoFormView = ({
   onChangeHandler,
@@ -12,6 +18,7 @@ const VideoFormView = ({
   errors,
   handleSubmit,
   setFieldValue,
+  action,
 }: videoCreatorViewProps) => {
   return (
     <Container
@@ -48,7 +55,12 @@ const VideoFormView = ({
               textAlign: "center",
             }}
           >
-            <h1>{WELCOME_MESSAGE}</h1>
+            <h1>
+              {
+                //@ts-ignore
+                FORM_TITLE_MESSAGE[`${action}`]
+              }
+            </h1>
           </Box>
           <TextField
             id="title"
@@ -63,11 +75,13 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
+            defaultValue={state.title ? state.title : ""}
             error={errors?.title}
             helperText={errors?.title}
             margin={"normal"}
           />
           <TextField
+            disabled={action === EDIT ? true : false}
             id="url"
             type={"url"}
             label="Url web site"
@@ -81,6 +95,7 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
+            defaultValue={state.url ? state.url : ""}
             error={errors?.url}
             helperText={errors?.url}
             margin={"normal"}
@@ -98,11 +113,13 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
+            defaultValue={state.comments ? state.comments : ""}
             error={errors?.comments}
             helperText={errors?.comments}
             margin={"normal"}
           />
           <Button
+            hidden={action === INSPECT ? true : false}
             onClick={() => handleSubmit()}
             variant="contained"
             sx={{

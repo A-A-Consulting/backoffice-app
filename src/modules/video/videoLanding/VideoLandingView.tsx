@@ -1,15 +1,9 @@
-import {
-  Box,
-  Button,
-  Container,
-  Modal,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, Button, Container, Modal } from "@mui/material";
 import { VideoFormController } from "../videoForm/videoForm.controller";
 import { videoItem } from "../video.interface";
 import { VideoTableView } from "../videoTable/videoTable.view";
-import { useState } from "react";
+import { CREATE } from "../videoForm/videoForm.constants";
 
 interface VideoLandingViewProps {
   videoList: videoItem[];
@@ -18,10 +12,15 @@ interface VideoLandingViewProps {
 export const VideoLandingView = (props: VideoLandingViewProps) => {
   const { videoList } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState(CREATE);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {}, [action]);
+
   return (
     <Container>
       <h1>Tablero de Videos</h1>
@@ -39,7 +38,12 @@ export const VideoLandingView = (props: VideoLandingViewProps) => {
           Añadir Video
         </Button>
       </Box>
-      <VideoTableView videoList={videoList} />
+      <VideoTableView
+        videoList={videoList}
+        setIsModalOpen={setIsModalOpen}
+        setSelectedVideo={setSelectedVideo}
+        setAction={setAction}
+      />
 
       <Modal
         sx={{
@@ -51,7 +55,7 @@ export const VideoLandingView = (props: VideoLandingViewProps) => {
         open={isModalOpen}
         onClose={handleCloseModal}
       >
-        <VideoFormController />
+        <VideoFormController action={action} content={selectedVideo} />
       </Modal>
     </Container>
   );

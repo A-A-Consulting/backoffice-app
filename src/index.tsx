@@ -9,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext/auth.provider";
 
 const { API_HOST } = process.env;
-console.log("🚀 ~ file: index.tsx:12 ~ API_HOST:", API_HOST);
 axios.defaults.baseURL = API_HOST || "http://localhost:3100";
 // axios.defaults.baseURL = "http://localhost:3100";
 

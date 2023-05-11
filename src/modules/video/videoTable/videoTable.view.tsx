@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableContainer,
@@ -7,37 +7,59 @@ import {
   TableCell,
   TableRow,
   Paper,
+  IconButton,
 } from "@mui/material";
 import { videoItem } from "../video.interface";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+
+import { DELETE, EDIT, INSPECT } from "../videoForm/videoForm.constants";
+import Swal from "sweetalert2";
+import { deleteVideoService } from "../videoForm/videoForm.handlers";
 
 interface VideoTableViewPropsI {
   videoList: videoItem[];
+  setIsModalOpen: Function;
+  setSelectedVideo: Function;
+  setAction: Function;
 }
 
-// const gridHeader = [
-//   {
-//     field: "titulo",
-//     headerName: "Título",
-//     width: 150,
-//     sortable: true,
-//   },
-//   {
-//     field: "createdAt",
-//     headerName: "Fecha Publicación",
-//     width: 60,
-//     sortable: true,
-//   },
-//   {
-//     field: "action",
-//     headerName: "Acciones",
-//     sortable: false,
-//     width: 120,
-//   },
-// ];
-
 export const VideoTableView = (props: VideoTableViewPropsI) => {
-  const { videoList } = props;
+  const { videoList, setAction, setSelectedVideo, setIsModalOpen } = props;
+
   useEffect(() => {}, [videoList]);
+
+  const handleDelete = (content: any) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteVideoService(content).then((response) => {
+            if (response) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("guardaaaaaaaaaaaaa");
+      });
+  };
+
+  const handleClick = (content: any, action: string) => {
+    setAction(action);
+    setSelectedVideo(content);
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <h3>Tabla de Videos</h3>
@@ -57,6 +79,15 @@ export const VideoTableView = (props: VideoTableViewPropsI) => {
                 <TableCell>
                   {new Date(video.createdAt).toLocaleDateString()}
                 </TableCell>
+                <IconButton onClick={() => handleClick(video, INSPECT)}>
+                  <RemoveRedEyeIcon />
+                </IconButton>
+                <IconButton onClick={() => handleClick(video, EDIT)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => handleDelete(video)}>
+                  <DeleteForeverIcon />
+                </IconButton>
               </TableRow>
             ))}
           </TableBody>

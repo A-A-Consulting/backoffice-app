@@ -6,6 +6,7 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import { loging } from "../../modules/external-services/external-services";
 import Cookies from "js-cookie";
 import { useLocation, useNavigate } from "react-router";
+import axios, { AxiosRequestHeaders } from "axios";
 
 const initialState: authContextT = {
   isAuthenticated: false,
@@ -53,12 +54,21 @@ export const AuthProvider = (props: authProviderPropsI) => {
         email,
         password,
       });
-      console.log(
-        "🚀 ~ file: auth.provider.tsx:56 ~ loginUser ~ apiResponse:",
-        apiResponse
-      );
       if (apiResponse.data !== null) {
         Cookies.set("accessToken", apiResponse.data);
+
+        axios.interceptors.request.use(async (req) => {
+          const accessToken = Cookies.get("accessToken");
+          //@ts-ignore
+          req.headers = {
+            "Content-Type": "application/json",
+            Accept: '"application/json, text/plain, */*"',
+            Authorization: `Bearer ${accessToken}`,
+          };
+
+          return req;
+        });
+
         navigate("/dashboard");
         return dispatch({
           type: "LOGIN",

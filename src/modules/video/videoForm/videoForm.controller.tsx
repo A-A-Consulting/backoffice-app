@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik } from "formik";
+import Swal from "sweetalert2";
 
 import { VideoFormView } from "./videoForm.view";
-import { videoFormHandler, onChangeHandler } from "./videoForm.handlers";
+import {
+  videoFormHandler,
+  videoEditFormHandler,
+  onChangeHandler,
+  deleteVideoService,
+} from "./videoForm.handlers";
 import { videoSchema } from "./videoForm.validator";
 import { Alert, AlertColor } from "@mui/material";
+import { CREATE, DELETE, EDIT } from "./videoForm.constants";
 
 const alertSucces = {
   severity: "success",
@@ -16,27 +23,59 @@ const alertError = {
   message: "Oops! something went wrong, try again!",
 };
 
-const VideoFormController = () => {
+const VideoFormController = (props: any) => {
+  const { action, content } = props;
+  console.log(
+    "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ content:",
+    content
+  );
+  console.log(
+    "🚀 ~ file: videoForm.controller.tsx:24 ~ VideoFormController ~ action:",
+    action
+  );
+
   const initial_values = {
-    title: null,
-    comments: null,
-    url: null,
+    id: content.id ? content.id : null,
+    title: content?.title ? content.title : null,
+    comments: content?.comments ? content.comments : null,
+    url: content?.url ? content.url : null,
     isSubmitting: false,
   };
   const [state, setState] = useState(initial_values);
   const [isAlertShown, setIsAlertShown] = useState(false);
   const [alertProps, setAlertProps] = useState(alertSucces);
 
+  useEffect(() => {
+    if (content) {
+      setState({
+        id: content.id,
+        title: content?.title,
+        comments: content?.comments,
+        url: content?.url,
+        isSubmitting: false,
+      });
+    }
+  }, []);
+
   const onCloseAlert = () => {
     setIsAlertShown(false);
   };
 
-  return (
-    <Formik
-      initialValues={initial_values}
-      onSubmit={async () => {
+  const handleSubmitForm = async () => {
+    if (action === CREATE) {
+      try {
+        await videoFormHandler(state);
+        setAlertProps(alertSucces);
+        setIsAlertShown(true);
+      } catch (error) {
+        console.error((error as Error).message);
+        setAlertProps(alertError);
+        setIsAlertShown(true);
+      }
+    } else {
+      if (action === EDIT) {
         try {
-          const response = await videoFormHandler(state);
+          await videoEditFormHandler(state);
           setAlertProps(alertSucces);
           setIsAlertShown(true);
         } catch (error) {
@@ -44,11 +83,19 @@ const VideoFormController = () => {
           setAlertProps(alertError);
           setIsAlertShown(true);
         }
-      }}
+      }
+    }
+  };
+
+  return (
+    <Formik
+      initialValues={state}
+      onSubmit={handleSubmitForm}
       validationSchema={videoSchema}
       // validate={async ()=> await videoValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
+        console.log("LOS VALUES EN EL FORM ->>>>>>>>>", values);
         return (
           <>
             {isAlertShown && (
@@ -67,6 +114,7 @@ const VideoFormController = () => {
                 errors={errors}
                 handleSubmit={handleSubmit}
                 setFieldValue={setFieldValue}
+                action={action}
               />
             </form>
           </>
