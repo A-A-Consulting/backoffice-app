@@ -1,8 +1,6 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
-// import { loginManager } from "../external-services/firebase/interceptor";
-
 import { LOGIN, WELCOME_MESSAGE } from "./login.constants";
 
 const LoginView = (props: any) => {
@@ -96,16 +94,6 @@ const LoginView = (props: any) => {
           >
             {LOGIN}
           </Button>
-          {/* <Button
-            onClick={async () => loginManager()}
-            variant="contained"
-            sx={{
-              marginTop: "15px",
-              width: "50%",
-            }}
-          >
-            {LOGIN_GOOGLE}
-          </Button> */}
         </Box>
       </Box>
     </Container>

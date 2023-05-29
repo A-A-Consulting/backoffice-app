@@ -2,7 +2,11 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
-import { INSPECT, SAVE_SUBSCRIPTION, WELCOME_MESSAGE } from "./subscriptionForm.constants";
+import {
+  FORM_TITLE_MESSAGE,
+  INSPECT,
+  SAVE_SUBSCRIPTION,
+} from "./subscriptionForm.constants";
 import { subscriptionCreatorViewProps } from "./subscriptionForm.interface";
 
 const SubscriptionFormView = ({
@@ -12,7 +16,7 @@ const SubscriptionFormView = ({
   errors,
   handleSubmit,
   setFieldValue,
-  action
+  action,
 }: subscriptionCreatorViewProps) => {
   return (
     <Container
@@ -49,7 +53,12 @@ const SubscriptionFormView = ({
               textAlign: "center",
             }}
           >
-            <h1>{WELCOME_MESSAGE}</h1>
+            <h1>
+              {
+                //@ts-ignore
+                FORM_TITLE_MESSAGE[`${action}`]
+              }
+            </h1>
           </Box>
           <TextField
             id="name"
@@ -94,6 +103,23 @@ const SubscriptionFormView = ({
               onChangeHandler(
                 event.target.value,
                 "description",
+                state,
+                setState,
+                setFieldValue
+              )
+            }
+            error={errors?.comments}
+            helperText={errors?.comments}
+            margin={"normal"}
+          />
+          <TextField
+            id="url"
+            label="Url"
+            variant="outlined"
+            onChange={(event) =>
+              onChangeHandler(
+                event.target.value,
+                "url",
                 state,
                 setState,
                 setFieldValue

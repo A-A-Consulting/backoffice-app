@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableContainer,
@@ -8,33 +8,58 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Modal,
 } from "@mui/material";
 import { subscriptionItem } from "../subscription.interface";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import EditIcon from "@mui/icons-material/Edit";
+import Swal from "sweetalert2";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { SubscriptionFormController } from "../subscriptionForm/subscriptionForm.controller";
-import { CREATE, DELETE, EDIT, INSPECT } from "../subscriptionForm/subscriptionForm.constants";
+import { deleteSubscriptionService } from "../subscriptionForm/subscriptionForm.handlers";
+import { INSPECT } from "../subscriptionForm/subscriptionForm.constants";
 
 interface SubscriptionTableViewPropsI {
   subscriptionList: subscriptionItem[];
+  setSelectedSubscription: Function;
+  setIsModalOpen: Function;
+  setAction: Function;
 }
 
 export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
-  const { subscriptionList } = props;
-  const [isAction, setAction] = useState(CREATE);
-  const [isContent, setIsContent] = useState();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    subscriptionList,
+    setAction,
+    setSelectedSubscription,
+    setIsModalOpen,
+  } = props;
+
   useEffect(() => {}, [subscriptionList]);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleDelete = (content: any) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteSubscriptionService(content).then((response) => {
+            if (response) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("guardaaaaaaaaaaaaa");
+      });
   };
 
   const handleClick = (content: any, action: string) => {
+    setSelectedSubscription(content);
     setAction(action);
-    setIsContent(content);
     setIsModalOpen(true);
   };
 
@@ -52,32 +77,20 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
           </TableHead>
           <TableBody>
             {subscriptionList.map((subscription: subscriptionItem) => (
-              <TableRow key={subscription.id}>
+              <TableRow key={subscription?.id}>
                 <TableCell>{subscription.name}</TableCell>
                 <TableCell>{subscription.amount}</TableCell>
                 <TableCell>{subscription.description}</TableCell>
                 <IconButton onClick={() => handleClick(subscription, INSPECT)}>
                   <RemoveRedEyeIcon />
                 </IconButton>
-                <IconButton onClick={() => handleClick(subscription, DELETE)}>
+                <IconButton onClick={() => handleDelete(subscription)}>
                   <DeleteForeverIcon />
                 </IconButton>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <Modal
-          sx={{
-            backgroundColor: "grey",
-            zIndex: 1,
-            marginTop: "10vh",
-          }}
-          component={TableContainer}
-          open={isModalOpen}
-          onClose={handleCloseModal}
-        >
-          {<SubscriptionFormController action={isAction} content={isContent} />}
-        </Modal>
       </TableContainer>
     </>
   );

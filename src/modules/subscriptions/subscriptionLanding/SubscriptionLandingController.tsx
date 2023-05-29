@@ -8,7 +8,7 @@ export const SubscriptionLandingController = () => {
 
   const requestSubscription = useCallback(async () => {
     const fetchedSubscriptions = await getAllSubscriptions();
-    if (fetchedSubscriptions.length) {
+    if (fetchedSubscriptions?.length) {
       setSubscriptionList(fetchedSubscriptions);
     }
     setIsLoading(false);
@@ -19,14 +19,14 @@ export const SubscriptionLandingController = () => {
   }, []);
 
   useEffect(() => {
-    if (subscriptionList.length) {
+    if (subscriptionList?.length) {
       setIsLoading(false);
     }
   }, [subscriptionList, isLoading]);
 
   return (
     <>
-      {subscriptionList.length === 0 ? (
+      {subscriptionList?.length === 0 ? (
         isLoading ? (
           <div>Cargando...</div>
         ) : (
