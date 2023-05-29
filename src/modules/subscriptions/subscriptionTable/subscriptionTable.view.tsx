@@ -24,7 +24,12 @@ interface SubscriptionTableViewPropsI {
 }
 
 export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
-  const { subscriptionList, setAction, setSelectedSubscription, setIsModalOpen } = props;
+  const {
+    subscriptionList,
+    setAction,
+    setSelectedSubscription,
+    setIsModalOpen,
+  } = props;
 
   useEffect(() => {}, [subscriptionList]);
 
@@ -72,7 +77,7 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
           </TableHead>
           <TableBody>
             {subscriptionList.map((subscription: subscriptionItem) => (
-              <TableRow key={subscription.id}>
+              <TableRow key={subscription?.id}>
                 <TableCell>{subscription.name}</TableCell>
                 <TableCell>{subscription.amount}</TableCell>
                 <TableCell>{subscription.description}</TableCell>

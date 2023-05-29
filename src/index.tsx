@@ -7,10 +7,11 @@ import { ThemeConfig } from "./config/theme.config";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext/auth.provider";
+import { API_DEFAULT_URL } from "./config";
+console.log("🚀 ~ file: index.tsx:11 ~ API_DEFAULT_URL:", API_DEFAULT_URL);
 
-const { API_HOST } = process.env;
-axios.defaults.baseURL = API_HOST || "http://localhost:3100";
-// axios.defaults.baseURL = "http://localhost:3100";
+/** declaring default url for NODE_ENV */
+axios.defaults.baseURL = API_DEFAULT_URL;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

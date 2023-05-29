@@ -74,7 +74,7 @@ export const VideoTableView = (props: VideoTableViewPropsI) => {
           </TableHead>
           <TableBody>
             {videoList.map((video: videoItem) => (
-              <TableRow key={video.id}>
+              <TableRow key={video?.id}>
                 <TableCell>{video.title}</TableCell>
                 <TableCell>
                   {new Date(video.createdAt).toLocaleDateString()}

@@ -8,7 +8,7 @@ export const VideoLandingController = () => {
 
   const requestVideos = useCallback(async () => {
     const fetchedVideos = await getAllVideos();
-    if (fetchedVideos.length) {
+    if (fetchedVideos?.length) {
       setVideoList(fetchedVideos);
     }
     setIsLoading(false);
@@ -19,14 +19,14 @@ export const VideoLandingController = () => {
   }, []);
 
   useEffect(() => {
-    if (videoList.length) {
+    if (videoList?.length) {
       setIsLoading(false);
     }
   }, [videoList, isLoading]);
 
   return (
     <>
-      {videoList.length === 0 ? (
+      {videoList?.length === 0 ? (
         isLoading ? (
           <div>Cargando...</div>
         ) : (

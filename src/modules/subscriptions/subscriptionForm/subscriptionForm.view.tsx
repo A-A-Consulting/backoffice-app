@@ -2,10 +2,10 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Container, Box } from "@mui/material";
 
-import { 
+import {
   FORM_TITLE_MESSAGE,
   INSPECT,
-  SAVE_SUBSCRIPTION 
+  SAVE_SUBSCRIPTION,
 } from "./subscriptionForm.constants";
 import { subscriptionCreatorViewProps } from "./subscriptionForm.interface";
 
@@ -16,7 +16,7 @@ const SubscriptionFormView = ({
   errors,
   handleSubmit,
   setFieldValue,
-  action
+  action,
 }: subscriptionCreatorViewProps) => {
   return (
     <Container
@@ -103,6 +103,23 @@ const SubscriptionFormView = ({
               onChangeHandler(
                 event.target.value,
                 "description",
+                state,
+                setState,
+                setFieldValue
+              )
+            }
+            error={errors?.comments}
+            helperText={errors?.comments}
+            margin={"normal"}
+          />
+          <TextField
+            id="url"
+            label="Url"
+            variant="outlined"
+            onChange={(event) =>
+              onChangeHandler(
+                event.target.value,
+                "url",
                 state,
                 setState,
                 setFieldValue
