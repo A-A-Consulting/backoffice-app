@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { subscriptionItem } from "../subscription.interface";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -33,27 +34,40 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
 
   useEffect(() => {}, [subscriptionList]);
 
-  const handleDelete = (content: any) => {
+  const handleDelete = (id: string) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Estás Seguro?",
+      text: "No se podrá recuperar!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Si, seguro!",
     })
       .then((result) => {
         if (result.isConfirmed) {
-          deleteSubscriptionService(content).then((response) => {
-            if (response) {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            }
-          });
+          deleteSubscriptionService(id)
+            .then((response) => {
+              if (response) {
+                Swal.fire(
+                  "Eliminado!",
+                  "La subscripcion se ha eliminado.",
+                  "success"
+                );
+              }
+            })
+            .catch((error) => {
+              Swal.fire({
+                title: "error",
+                text: `${(error as Error).message}`,
+                icon: "error",
+                showCancelButton: false,
+              });
+            });
         }
       })
       .catch((error) => {
-        console.error("guardaaaaaaaaaaaaa");
+        console.error(`${error}`);
       });
   };
 
@@ -70,9 +84,19 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Nombre del plan</TableCell>
-              <TableCell>Costo mensual</TableCell>
-              <TableCell>Acciones</TableCell>
+              <TableCell>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Nombre del plan
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Costo mensual
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography sx={{ fontWeight: "bold" }}>Acciones</Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,7 +108,7 @@ export const SubscriptionTableView = (props: SubscriptionTableViewPropsI) => {
                 <IconButton onClick={() => handleClick(subscription, INSPECT)}>
                   <RemoveRedEyeIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDelete(subscription)}>
+                <IconButton onClick={() => handleDelete(subscription?.id)}>
                   <DeleteForeverIcon />
                 </IconButton>
               </TableRow>

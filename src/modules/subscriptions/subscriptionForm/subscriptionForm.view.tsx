@@ -73,9 +73,11 @@ const SubscriptionFormView = ({
                 setFieldValue
               )
             }
+            defaultValue={state.title}
             error={errors?.title}
             helperText={errors?.title}
             margin={"normal"}
+            disabled={action === "inspect"}
           />
           <TextField
             id="amount"
@@ -91,9 +93,11 @@ const SubscriptionFormView = ({
                 setFieldValue
               )
             }
-            error={errors?.url}
-            helperText={errors?.url}
+            defaultValue={state.amount}
+            error={errors?.amount}
+            helperText={errors?.amount}
             margin={"normal"}
+            disabled={action === "inspect"}
           />
           <TextField
             id="description"
@@ -108,9 +112,11 @@ const SubscriptionFormView = ({
                 setFieldValue
               )
             }
-            error={errors?.comments}
-            helperText={errors?.comments}
+            defaultValue={state?.description}
+            error={errors?.description}
+            helperText={errors?.description}
             margin={"normal"}
+            disabled={action === "inspect"}
           />
           <TextField
             id="url"
@@ -125,9 +131,11 @@ const SubscriptionFormView = ({
                 setFieldValue
               )
             }
-            error={errors?.comments}
-            helperText={errors?.comments}
+            defaultValue={state?.url}
+            error={errors?.url}
+            helperText={errors?.url}
             margin={"normal"}
+            disabled={action === "inspect"}
           />
           <Button
             hidden={action === INSPECT ? true : false}
@@ -136,6 +144,7 @@ const SubscriptionFormView = ({
             sx={{
               marginTop: "15px",
               width: "50%",
+              display: action === "inspect" ? "none" : "true",
             }}
           >
             {SAVE_SUBSCRIPTION}

@@ -176,9 +176,13 @@ export const saveSubscription = async (data: any) => {
   }
 };
 
-export const deleteSubscription = async (data: any) => {
+export const deleteSubscription = async (id: string) => {
+  console.log(
+    "🚀 ~ file: external-services.ts:180 ~ deleteSubscription ~ id:",
+    id
+  );
   try {
-    const response = await axios.delete("/subscription/delete", { ...data });
+    const response = await axios.delete(`/subscription/delete/${id}`);
 
     return response.data;
   } catch (error) {

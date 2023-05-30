@@ -81,7 +81,8 @@ const LoginView = (props: any) => {
               )
             }
             error={errors?.password}
-            helperText={errors?.password}
+            // helperText={errors?.password}
+            helperText={"campo requerido"}
             margin={"normal"}
           />
           <Button

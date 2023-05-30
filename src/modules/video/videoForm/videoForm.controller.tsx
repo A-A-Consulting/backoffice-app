@@ -72,10 +72,8 @@ const VideoFormController = (props: any) => {
       initialValues={state}
       onSubmit={handleSubmitForm}
       validationSchema={videoSchema}
-      // validate={async ()=> await videoValidator(state,setError)}
     >
       {({ values, handleSubmit, setFieldValue, errors }) => {
-        //  console.log("LOS VALUES EN EL FORM ->>>>>>>>>", values);
         return (
           <>
             {isAlertShown && (
