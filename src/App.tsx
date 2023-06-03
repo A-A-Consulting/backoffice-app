@@ -11,7 +11,10 @@ function App() {
       <Route path="/" element={<LoginController />} />
       <Route path="/dashboard" element={<MiniDrawer />}>
         <Route path="videos" element={<VideoLandingController />} />
-        <Route path="priority" element={<SubscriptionLandingController />} />
+        <Route
+          path="subscripciones"
+          element={<SubscriptionLandingController />}
+        />
       </Route>
     </Routes>
   );

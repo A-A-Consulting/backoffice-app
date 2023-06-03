@@ -16,9 +16,9 @@ const VideoFormController = (props: any) => {
 
   const initial_values = {
     id: content?.id ? content?.id : null,
-    title: content.title ? content.title : null,
-    comments: content.comments ? content.comments : null,
-    url: content.url ? content.url : null,
+    title: content?.title ? content.title : null,
+    comments: content?.comments ? content.comments : null,
+    url: content?.url ? content.url : null,
     isSubmitting: false,
   };
   const [state, setState] = useState(initial_values);
@@ -29,9 +29,9 @@ const VideoFormController = (props: any) => {
     if (content) {
       setState({
         id: content?.id,
-        title: content.title,
-        comments: content.comments,
-        url: content.url,
+        title: content?.title,
+        comments: content?.comments,
+        url: content?.url,
         isSubmitting: false,
       });
     }

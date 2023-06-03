@@ -74,7 +74,7 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
-            defaultValue={state.title ? state.title : ""}
+            defaultValue={state?.title ? state.title : ""}
             error={errors?.title}
             helperText={errors?.title}
             margin={"normal"}
@@ -94,7 +94,7 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
-            defaultValue={state.url ? state.url : ""}
+            defaultValue={state?.url ? state.url : ""}
             error={errors?.url}
             helperText={errors?.url}
             margin={"normal"}
@@ -112,7 +112,7 @@ const VideoFormView = ({
                 setFieldValue
               )
             }
-            defaultValue={state.comments ? state.comments : ""}
+            defaultValue={state?.comments ? state.comments : ""}
             error={errors?.comments}
             helperText={errors?.comments}
             margin={"normal"}
