@@ -62,7 +62,7 @@ const LoginView = (props: any) => {
                 setFieldValue
               )
             }
-            error={errors?.email}
+            error={errors?.email !== undefined}
             helperText={errors?.email}
             margin={"normal"}
           />
@@ -80,8 +80,7 @@ const LoginView = (props: any) => {
                 setFieldValue
               )
             }
-            error={errors?.password}
-            // helperText={errors?.password}
+            error={errors?.password !== undefined}
             helperText={"campo requerido"}
             margin={"normal"}
           />

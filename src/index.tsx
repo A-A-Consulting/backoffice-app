@@ -14,7 +14,7 @@ console.log("🚀 ~ file: index.tsx:11 ~ API_DEFAULT_URL:", API_DEFAULT_URL);
 axios.defaults.baseURL = API_DEFAULT_URL;
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root1") as HTMLElement
 );
 root.render(
   <React.StrictMode>

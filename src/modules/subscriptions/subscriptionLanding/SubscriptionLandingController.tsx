@@ -16,7 +16,7 @@ export const SubscriptionLandingController = () => {
 
   useEffect(() => {
     requestSubscription();
-  }, []);
+  }, [requestSubscription]);
 
   useEffect(() => {
     if (subscriptionList?.length) {
